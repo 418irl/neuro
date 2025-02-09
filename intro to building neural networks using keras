@@ -16,24 +16,18 @@ model=keras.Sequential([`
       keras.layers.Dense(10,activation="softmax")
 ])
 
-
 model.compile(
     optimizer="adam",
     loss="sparse_categorical_crossentropy",
     metrics=["accuracy"]
 )
 
-
 model.fit(x_train,y_train,epochs=5)
-
 model.evaluate(x_test,y_test)
 
 x=x_test[4675]
-
 plt.imshow(x,cmap=plt.cm.binary)
 plt.show()
-
-
 x=x.reshape(1,28,28)
 pred=model.predict(x)
 print(pred)
