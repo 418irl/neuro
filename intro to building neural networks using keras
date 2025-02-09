@@ -1,0 +1,39 @@
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import matplotlib.pyplot as plt
+
+data=tf.keras.datasets.mnist
+
+(x_train,y_train),(x_test,y_test)=data.load_data()
+x_train.shape
+x_train,y_train=x_train/255,y_train/255
+
+model=keras.Sequential([`
+      keras.layers.Flatten(input_shape=(28,28)),
+      keras.layers.Dense(128,activation='relu'),
+      keras.layers.Dropout(0.2),
+      keras.layers.Dense(10,activation="softmax")
+])
+
+
+model.compile(
+    optimizer="adam",
+    loss="sparse_categorical_crossentropy",
+    metrics=["accuracy"]
+)
+
+
+model.fit(x_train,y_train,epochs=5)
+
+model.evaluate(x_test,y_test)
+
+x=x_test[4675]
+
+plt.imshow(x,cmap=plt.cm.binary)
+plt.show()
+
+
+x=x.reshape(1,28,28)
+pred=model.predict(x)
+print(pred)
